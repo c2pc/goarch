@@ -16,8 +16,8 @@ func NewUserRouters(user controller.UserController) *UserRouter {
 }
 
 func (r *UserRouter) Init(api *gin.RouterGroup) {
-	users := api.Group("/users")
+	_ = api.Group("/users")
 	{
-		users.GET("/:id", r.userController.GetByID)
+
 	}
 }
