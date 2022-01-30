@@ -5,7 +5,6 @@ type Role struct {
 	Name        string
 	DisplayName string
 	Description string
-	Permissions []RoleHasPermissions `pg:"many2many:role_has_permissions"`
 }
 
 type RoleHasPermissions struct {
