@@ -14,8 +14,8 @@ import (
 )
 
 var name string
-var displayName string = ""
-var description string = ""
+var displayName string
+var description string
 
 var roleCmd = &cobra.Command{
 	Use:   "role",
