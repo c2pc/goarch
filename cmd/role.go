@@ -34,8 +34,8 @@ var roleCmd = &cobra.Command{
 			return
 		}
 
-		repositories := repository.NewRepositories(db, logger)
-		services := service.NewServices(repositories)
+		roleRepository := repository.NewRoleRepository(db, logger)
+		roleService := service.NewRoleService(roleRepository)
 
 		const timeout = 5 * time.Second
 
@@ -45,7 +45,7 @@ var roleCmd = &cobra.Command{
 		if displayName == "" {
 			displayName = strings.Title(strings.ToLower(name))
 		}
-		role, err := services.Role.Create(ctx, service.CreateRoleInput{
+		role, err := roleService.Create(ctx, service.CreateRoleInput{
 			Name:        name,
 			DisplayName: displayName,
 			Description: description,
