@@ -6,15 +6,16 @@ COPY . /goarch/
 WORKDIR /goarch/
 
 RUN go mod download
-RUN GOOS=linux go build -o ./.bin/app ./cmd/app/main.go
+RUN GOOS=linux go build -o ./.bin/app .
 
 FROM alpine:latest
 
 WORKDIR /root/
 
 COPY --from=0 /goarch/.bin/app .
-COPY --from=0 /goarch/files files/
 
-EXPOSE 8089
+ARG HTTP_PORT
+
+EXPOSE $HTTP_PORT
 
 CMD ["./app"]

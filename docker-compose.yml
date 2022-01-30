@@ -13,7 +13,6 @@ services:
       - ${HTTP_PORT}:${HTTP_PORT}
     volumes:
       - ./.bin/:/root/
-      - ./files/:/root/files/
     env_file:
       - .env
 

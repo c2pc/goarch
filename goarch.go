@@ -5,15 +5,10 @@ import (
 	_ "github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/joho/godotenv"
-	"log"
 )
 
 func main() {
-	err := godotenv.Load(".env")
-	if err != nil {
-		log.Fatal(err)
-		return
-	}
+	_ = godotenv.Load(".env")
 
 	cmd.Execute()
 }
