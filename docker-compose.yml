@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  app:
+    image: goarch
+    container_name: goarch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - ${HTTP_PORT}:${HTTP_PORT}
+    volumes:
+      - ./.bin/:/root/
+      - ./files/:/root/files/
+    env_file:
+      - .env
+
+  postgres:
+    image: postgres:13.0-alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_ROOT_USERNAME: ${POSTGRES_SUPERUSER}
+      POSTGRES_ROOT_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./.data/db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - ${POSTGRES_PORT}:5432
