@@ -6,7 +6,7 @@ COPY . /goarch/
 WORKDIR /goarch/
 
 RUN go mod download
-RUN GOOS=linux go build -o ./.bin/app .
+RUN GOOS=linux go build -o ./.bin/app ./cmd/app/main.go
 
 FROM alpine:latest
 
